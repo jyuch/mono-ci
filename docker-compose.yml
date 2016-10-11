@@ -1,0 +1,19 @@
+version: '2'
+services:
+  gitbucket-websrv:
+    build: './gitbucket'
+    ports:
+      - '8080:8080'
+    volumes:
+      - '/srv/mono-ci/gitbucket:/srv/gitbucket'
+  jenkins:
+    image: 'jenkins:2.19.1'
+    ports:
+      - '8090:8080'
+      - '50000:50000'
+    volumes:
+      - '/srv/mono-ci/jenkins:/var/jenkins_home'
+  jenkins-slave-mono:
+    build: './jenkins-slave-mono'
+    ports:
+      - '9000:22'
